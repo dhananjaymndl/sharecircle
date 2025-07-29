@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HomePage: React.FC = () =e {
+const HomePage: React.FC = () => {
   const features = [
     {
       icon: '🛍️',
-      title: 'Buy 6 Sell',
+      title: 'Buy & Sell',
       description: 'Find amazing deals on items from your neighbors or sell things you no longer need.'
     },
     {
@@ -28,192 +28,193 @@ const HomePage: React.FC = () =e {
   const categories = [
     {
       name: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=4006h=3006fit=crop',
+      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=300&fit=crop',
       count: '1,200+ items'
     },
     {
       name: 'Furniture',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=4006h=3006fit=crop',
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop',
       count: '800+ items'
     },
     {
-      name: 'Sports 6 Outdoors',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=4006h=3006fit=crop',
+      name: 'Sports & Outdoors',
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
       count: '600+ items'
     },
     {
       name: 'Tools',
-      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=4006h=3006fit=crop',
+      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
       count: '400+ items'
     }
   ];
 
   return (
-    cdiv className="min-h-screen"e
+    <div className="min-h-screen">
       {/* Hero Section */}
-      csection className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white overflow-hidden"e
+      <section className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white overflow-hidden">
         {/* Background Image */}
-        cdiv className="absolute inset-0 opacity-20"e
-          cimg 
-            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=19206h=10806fit=crop" 
+        <div className="absolute inset-0 opacity-20">
+          <img 
+            src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&h=1080&fit=crop" 
             alt="Community marketplace" 
             className="w-full h-full object-cover"
-          /e
-        c/dive
+          />
+        </div>
         
-        cdiv className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32"e
-          cdiv className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"e
-            cdive
-              ch1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight"e
+        <div className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
                 Share, Connect,
-                cspan className="text-primary-200"e Thrivec/spane
-              c/h1e
-              cp className="text-xl lg:text-2xl text-primary-100 mb-8 leading-relaxed"e
+                <span className="text-primary-200"> Thrive</span>
+              </h1>
+              <p className="text-xl lg:text-2xl text-primary-100 mb-8 leading-relaxed">
                 Your neighborhood marketplace where community meets commerce. 
                 Buy, sell, and rent locally while building meaningful connections.
-              c/pe
-              cdiv className="flex flex-col sm:flex-row gap-4"e
-                cLink to="/browse" className="bg-white text-primary-900 hover:bg-primary-50 font-semibold text-lg px-8 py-4 rounded-xl transition-colors inline-flex items-center justify-center"e
-                  cspan className="mr-2"e🔍c/spane
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/browse" className="bg-white text-primary-900 hover:bg-primary-50 font-semibold text-lg px-8 py-4 rounded-xl transition-colors inline-flex items-center justify-center">
+                  <span className="mr-2">🔍</span>
                   Explore Marketplace
-                c/Linke
-                cLink to="/items/new" className="border-2 border-white text-white hover:bg-white hover:text-primary-900 font-semibold text-lg px-8 py-4 rounded-xl transition-colors inline-flex items-center justify-center"e
-                  cspan className="mr-2"e➕c/spane
+                </Link>
+                <Link to="/items/new" className="border-2 border-white text-white hover:bg-white hover:text-primary-900 font-semibold text-lg px-8 py-4 rounded-xl transition-colors inline-flex items-center justify-center">
+                  <span className="mr-2">➕</span>
                   List an Item
-                c/Linke
-              c/dive
-            c/dive
-            cdiv className="relative"e
-              cimg 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=6006h=4006fit=crop" 
+                </Link>
+              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" 
                 alt="Happy community" 
                 className="rounded-2xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300"
-              /e
-              cdiv className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg"e
-                cdiv className="flex items-center gap-3"e
-                  cdiv className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"e
-                    cspan className="text-2xl"e✅c/spane
-                  c/dive
-                  cdive
-                    cp className="font-semibold text-gray-900"e1000+ Items Listedc/pe
-                    cp className="text-sm text-gray-600"eThis monthc/pe
-                  c/dive
-                c/dive
-              c/dive
-            c/dive
-          c/dive
-        c/dive
-      c/sectione
+              />
+              <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl">✅</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">1000+ Items Listed</p>
+                    <p className="text-sm text-gray-600">This month</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
-      csection className="py-24 bg-white"e
-        cdiv className="max-w-7xl mx-auto px-6"e
-          cdiv className="text-center mb-16"e
-            ch2 className="text-4xl lg:text-5xl font-bold text-primary-900 mb-6"e
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-primary-900 mb-6">
               Why Choose ShareCircle?
-            c/h2e
-            cp className="text-xl text-primary-600 max-w-3xl mx-auto"e
+            </h2>
+            <p className="text-xl text-primary-600 max-w-3xl mx-auto">
               We're more than just a marketplace - we're building sustainable communities
-            c/pe
-          c/dive
+            </p>
+          </div>
           
-          cdiv className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"e
-            {features.map((feature, index) =e (
-              cdiv key={index} className="text-center group hover:scale-105 transition-transform duration-300"e
-                cdiv className="w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-200 transition-colors"e
-                  cspan className="text-4xl"e{feature.icon}c/spane
-                c/dive
-                ch3 className="text-xl font-semibold text-primary-900 mb-4"e{feature.title}c/h3e
-                cp className="text-primary-600 leading-relaxed"e{feature.description}c/pe
-              c/dive
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="text-center group hover:scale-105 transition-transform duration-300">
+                <div className="w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-200 transition-colors">
+                  <span className="text-4xl">{feature.icon}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-primary-900 mb-4">{feature.title}</h3>
+                <p className="text-primary-600 leading-relaxed">{feature.description}</p>
+              </div>
             ))}
-          c/dive
-        c/dive
-      c/sectione
+          </div>
+        </div>
+      </section>
 
       {/* Categories Section */}
-      csection className="py-24 bg-primary-50"e
-        cdiv className="max-w-7xl mx-auto px-6"e
-          cdiv className="text-center mb-16"e
-            ch2 className="text-4xl lg:text-5xl font-bold text-primary-900 mb-6"e
+      <section className="py-24 bg-primary-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-primary-900 mb-6">
               Popular Categories
-            c/h2e
-            cp className="text-xl text-primary-600 max-w-3xl mx-auto"e
+            </h2>
+            <p className="text-xl text-primary-600 max-w-3xl mx-auto">
               Discover thousands of items across all categories
-            c/pe
-          c/dive
+            </p>
+          </div>
           
-          cdiv className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"e
-            {categories.map((category, index) =e (
-              cLink 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {categories.map((category, index) => (
+              <Link 
                 key={index} 
                 to={`/browse?category=${category.name}`}
                 className="group cursor-pointer"
-              e
-                cdiv className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300"e
-                  cimg 
+              >
+                <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                  <img 
                     src={category.image} 
                     alt={category.name}
                     className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                  /e
-                  cdiv className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"ec/dive
-                  cdiv className="absolute bottom-6 left-6 text-white"e
-                    ch3 className="text-2xl font-bold mb-2"e{category.name}c/h3e
-                    cp className="text-primary-200"e{category.count}c/pe
-                  c/dive
-                c/dive
-              c/Linke
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
+                    <p className="text-primary-200">{category.count}</p>
+                  </div>
+                </div>
+              </Link>
             ))}
-          c/dive
-        c/dive
-      c/sectione
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
-      csection className="py-24 bg-white"e
-        cdiv className="max-w-7xl mx-auto px-6"e
-          cdiv className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center"e
-            cdive
-              cdiv className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2"e10K+c/dive
-              cdiv className="text-primary-600 text-lg"eActive Usersc/dive
-            c/dive
-            cdive
-              cdiv className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2"e25K+c/dive
-              cdiv className="text-primary-600 text-lg"eItems Listedc/dive
-            c/dive
-            cdive
-              cdiv className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2"e5K+c/dive
-              cdiv className="text-primary-600 text-lg"eSuccessful Tradesc/dive
-            c/dive
-            cdive
-              cdiv className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2"e50+c/dive
-              cdiv className="text-primary-600 text-lg"eCities Servedc/dive
-            c/dive
-          c/dive
-        c/dive
-      c/sectione
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2">10K+</div>
+              <div className="text-primary-600 text-lg">Active Users</div>
+            </div>
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2">25K+</div>
+              <div className="text-primary-600 text-lg">Items Listed</div>
+            </div>
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2">5K+</div>
+              <div className="text-primary-600 text-lg">Successful Trades</div>
+            </div>
+            <div>
+              <div className="text-4xl lg:text-5xl font-bold text-primary-900 mb-2">50+</div>
+              <div className="text-primary-600 text-lg">Cities Served</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
-      csection className="py-24 bg-gradient-to-r from-primary-900 to-primary-800 text-white"e
-        cdiv className="max-w-4xl mx-auto px-6 text-center"e
-          ch2 className="text-4xl lg:text-5xl font-bold mb-6"e
+      <section className="py-24 bg-gradient-to-r from-primary-900 to-primary-800 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Ready to Join Our Community?
-          c/h2e
-          cp className="text-xl text-primary-100 mb-8 leading-relaxed"e
+          </h2>
+          <p className="text-xl text-primary-100 mb-8 leading-relaxed">
             Start buying, selling, and connecting with your neighbors today. 
             It's free, easy, and helps build a more sustainable future.
-          c/pe
-          cdiv className="flex flex-col sm:flex-row gap-4 justify-center"e
-            cLink to="/register" className="bg-white text-primary-900 hover:bg-primary-50 font-semibold text-lg px-8 py-4 rounded-xl transition-colors"e
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register" className="bg-white text-primary-900 hover:bg-primary-50 font-semibold text-lg px-8 py-4 rounded-xl transition-colors">
               Get Started Free
-            c/Linke
-            cLink to="/browse" className="border-2 border-white text-white hover:bg-white hover:text-primary-900 font-semibold text-lg px-8 py-4 rounded-xl transition-colors"e
+            </Link>
+            <Link to="/browse" className="border-2 border-white text-white hover:bg-white hover:text-primary-900 font-semibold text-lg px-8 py-4 rounded-xl transition-colors">
               Browse First
-            c/Linke
-          c/dive
-        c/dive
-      c/sectione
-    c/dive
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
 export default HomePage;
+

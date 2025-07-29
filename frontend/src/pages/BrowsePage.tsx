@@ -61,7 +61,7 @@ const BrowsePage: React.FC = () => {
             item_type: 'sale',
             category: 'Electronics',
             condition: 'Like New',
-            images: [],
+            images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop'],
             created_at: '2024-01-15',
             user_name: 'John Doe',
             location: 'San Francisco, CA'
@@ -74,10 +74,49 @@ const BrowsePage: React.FC = () => {
             item_type: 'rent',
             category: 'Sports',
             condition: 'Good',
-            images: [],
+            images: ['https://images.unsplash.com/photo-1544191696-15693262d27b?w=400&h=300&fit=crop'],
             created_at: '2024-01-10',
             user_name: 'Sarah Smith',
             location: 'Austin, TX'
+          },
+          {
+            id: '3',
+            title: 'Vintage Camera',
+            description: 'Canon AE-1 film camera in working condition. Great for photography enthusiasts.',
+            price: 150,
+            item_type: 'auction',
+            category: 'Electronics',
+            condition: 'Good',
+            images: ['https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=300&fit=crop'],
+            created_at: '2024-01-12',
+            user_name: 'Mike Johnson',
+            location: 'Portland, OR'
+          },
+          {
+            id: '4',
+            title: 'Designer Sofa',
+            description: 'Modern 3-seater sofa in excellent condition. Moving sale.',
+            price: 800,
+            item_type: 'sale',
+            category: 'Furniture',
+            condition: 'Excellent',
+            images: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop'],
+            created_at: '2024-01-08',
+            user_name: 'Emily Chen',
+            location: 'Seattle, WA'
+          },
+          {
+            id: '5',
+            title: 'Power Drill Set',
+            description: 'Professional power drill with bits and case. Perfect for DIY projects.',
+            price: 25,
+            item_type: 'rent',
+            category: 'Tools',
+            condition: 'Good',
+            images: ['https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop'],
+            created_at: '2024-01-14',
+            user_name: 'David Wilson',
+            location: 'Denver, CO'
           }
         ];
         setItems(mockItems);
@@ -230,11 +269,21 @@ const BrowsePage: React.FC = () => {
                 className="card overflow-hidden hover:shadow-medium transition-shadow cursor-pointer"
                 onClick={() => navigate(`/items/${item.id}`)}
               >
-                {/* Image placeholder */}
-                <div className="h-48 bg-primary-100 flex items-center justify-center">
-                  <svg className="h-12 w-12 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
+                {/* Image */}
+                <div className="h-48 bg-primary-100 overflow-hidden">
+                  {item.images && item.images.length > 0 ? (
+                    <img 
+                      src={item.images[0]} 
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <svg className="h-12 w-12 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-4">

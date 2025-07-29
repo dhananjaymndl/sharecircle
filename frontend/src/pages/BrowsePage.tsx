@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Item {
   id: string;
@@ -15,6 +16,7 @@ interface Item {
 }
 
 const BrowsePage: React.FC = () => {
+  const navigate = useNavigate();
   const [items, setItems] = useState<Item[]>([]);
   const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,119 +27,74 @@ const BrowsePage: React.FC = () => {
   const categories = ['Electronics', 'Furniture', 'Clothing', 'Sports', 'Books', 'Tools', 'Other'];
   const itemTypes = ['sale', 'rent', 'auction'];
 
-  // Mock data - replace with actual API call
+  // Fetch items from API
   useEffect(() => {
-    const mockItems: Item[] = [
-      {
-        id: '1',
-        title: 'MacBook Pro 2021',
-        description: 'Excellent condition M1 MacBook Pro with 16GB RAM and 512GB SSD. Perfect for work or school.',
-        price: 1200,
-        item_type: 'sale',
-        category: 'Electronics',
-        condition: 'Like New',
-        images: [],
-        created_at: '2024-01-15',
-        user_name: 'John Doe',
-        location: 'San Francisco, CA'
-      },
-      {
-        id: '2',
-        title: 'Mountain Bike',
-        description: 'Trek mountain bike, great for trails and city riding. Recently serviced.',
-        price: 50,
-        item_type: 'rent',
-        category: 'Sports',
-        condition: 'Good',
-        images: [],
-        created_at: '2024-01-10',
-        user_name: 'Sarah Smith',
-        location: 'Austin, TX'
-      },
-      {
-        id: '3',
-        title: 'Vintage Camera',
-        description: 'Canon AE-1 film camera in working condition. Great for photography enthusiasts.',
-        price: 150,
-        item_type: 'auction',
-        category: 'Electronics',
-        condition: 'Good',
-        images: [],
-        created_at: '2024-01-12',
-        user_name: 'Mike Johnson',
-        location: 'Portland, OR'
-      },
-      {
-        id: '4',
-        title: 'Designer Sofa',
-        description: 'Modern 3-seater sofa in excellent condition. Moving sale.',
-        price: 800,
-        item_type: 'sale',
-        category: 'Furniture',
-        condition: 'Excellent',
-        images: [],
-        created_at: '2024-01-08',
-        user_name: 'Emily Chen',
-        location: 'Seattle, WA'
-      },
-      {
-        id: '5',
-        title: 'Power Drill Set',
-        description: 'Professional power drill with bits and case. Perfect for DIY projects.',
-        price: 25,
-        item_type: 'rent',
-        category: 'Tools',
-        condition: 'Good',
-        images: [],
-        created_at: '2024-01-14',
-        user_name: 'David Wilson',
-        location: 'Denver, CO'
-      }
-    ];
-    
-    setItems(mockItems);
-    setFilteredItems(mockItems);
+    fetchItems();
   }, []);
 
-  // Filter and search functionality
-  useEffect(() => {
-    let filtered = items;
-
-    // Search filter
-    if (searchTerm) {
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Category filter
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(item => item.category === selectedCategory);
-    }
-
-    // Type filter
-    if (selectedType !== 'all') {
-      filtered = filtered.filter(item => item.item_type === selectedType);
-    }
-
-    // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        case 'oldest':
-          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-        case 'newest':
-        default:
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  const fetchItems = async () => {
+    try {
+      const queryParams = new URLSearchParams();
+      if (searchTerm) queryParams.append('search', searchTerm);
+      if (selectedCategory !== 'all') queryParams.append('category', selectedCategory);
+      if (selectedType !== 'all') queryParams.append('item_type', selectedType);
+      if (sortBy) {
+        queryParams.append('sort_by', sortBy === 'newest' ? 'created_at' : sortBy === 'oldest' ? 'created_at' : 'price');
+        queryParams.append('sort_order', sortBy === 'newest' ? 'desc' : sortBy === 'oldest' ? 'asc' : sortBy === 'price-low' ? 'asc' : 'desc');
       }
-    });
 
-    setFilteredItems(filtered);
-  }, [items, searchTerm, selectedCategory, selectedType, sortBy]);
+      const response = await fetch(`http://localhost:5000/api/items?${queryParams}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setItems(data.data);
+        setFilteredItems(data.data);
+      } else {
+        console.error('Failed to fetch items:', data.message);
+        // Fallback to mock data if API fails
+        const mockItems: Item[] = [
+          {
+            id: '1',
+            title: 'MacBook Pro 2021',
+            description: 'Excellent condition M1 MacBook Pro with 16GB RAM and 512GB SSD. Perfect for work or school.',
+            price: 1200,
+            item_type: 'sale',
+            category: 'Electronics',
+            condition: 'Like New',
+            images: [],
+            created_at: '2024-01-15',
+            user_name: 'John Doe',
+            location: 'San Francisco, CA'
+          },
+          {
+            id: '2',
+            title: 'Mountain Bike',
+            description: 'Trek mountain bike, great for trails and city riding. Recently serviced.',
+            price: 50,
+            item_type: 'rent',
+            category: 'Sports',
+            condition: 'Good',
+            images: [],
+            created_at: '2024-01-10',
+            user_name: 'Sarah Smith',
+            location: 'Austin, TX'
+          }
+        ];
+        setItems(mockItems);
+        setFilteredItems(mockItems);
+      }
+    } catch (error) {
+      console.error('Error fetching items:', error);
+      // Fallback to empty array
+      setItems([]);
+      setFilteredItems([]);
+    }
+  };
+
+  // Re-fetch when filters change
+  useEffect(() => {
+    fetchItems();
+  }, [searchTerm, selectedCategory, selectedType, sortBy]);
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -268,7 +225,11 @@ const BrowsePage: React.FC = () => {
         {filteredItems.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredItems.map((item) => (
-              <div key={item.id} className="card overflow-hidden hover:shadow-medium transition-shadow">
+              <div 
+                key={item.id} 
+                className="card overflow-hidden hover:shadow-medium transition-shadow cursor-pointer"
+                onClick={() => navigate(`/items/${item.id}`)}
+              >
                 {/* Image placeholder */}
                 <div className="h-48 bg-primary-100 flex items-center justify-center">
                   <svg className="h-12 w-12 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

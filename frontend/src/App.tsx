@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import BrowsePage from './pages/BrowsePage';
+import AddItemPage from './pages/AddItemPage';
+import ItemDetailPage from './pages/ItemDetailPage';
 import Navbar from './components/Navbar';
 
 const AppContent: React.FC = () => {
@@ -17,6 +19,8 @@ const AppContent: React.FC = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/browse" element={<BrowsePage />} />
+        <Route path="/items/new" element={<AddItemPage />} />
+        <Route path="/items/:id" element={<ItemDetailPage />} />
       </Routes>
     </div>
   );

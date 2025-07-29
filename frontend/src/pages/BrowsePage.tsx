@@ -1,49 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { Item } from '../lib/supabase';
-import itemsService from '../services/itemsService';
-import type { CreateItemData, UpdateItemData } from '../types/items';
 
 const BrowsePage: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedType, setSelectedType] = useState('all');
-  const [sortBy, setSortBy] = useState<'created_at' | 'sale_price' | 'price_per_day' | 'title'>('created_at');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Modal states
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [editingItem, setEditingItem] = useState<Item | null>(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deletingItem, setDeletingItem] = useState<Item | null>(null);
-  
-  // Form state
-  const [formData, setFormData] = useState<CreateItemData>({
-    title: '',
-    description: '',
-    owner_id: 'current-user-id', // TODO: Get from auth context
-    availability_type: 'sale',
-    condition: 'Good',
-    location: ''
-  });
   
   const categories = ['Electronics', 'Furniture', 'Clothing', 'Sports', 'Books', 'Tools', 'Other'];
   const itemTypes = ['sale', 'rent', 'auction'];
-  const conditions = ['New', 'Like New', 'Good', 'Fair', 'Poor'];
 
   // Load items from Supabase
   useEffect(() => {
     loadItems();
-  }, [searchTerm, selectedCategory, selectedType, sortBy, sortOrder]);
+  }, [searchTerm, selectedCategory, selectedType]);
 
   const loadItems = async () => {
     try {
-      setLoading(true);
-      setError(null);
       
       // For demo purposes, use mock data directly
       // In production, you would uncomment the API call below
@@ -222,99 +196,64 @@ const BrowsePage: React.FC = () => {
           location: 'San Jose, CA'
         }
       ];
-      setItems(mockItems);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // CRUD Operations
-  const handleCreateItem = async () => {
-    try {
-      setLoading(true);
-      const newItem = await itemsService.createItem(formData);
-      setItems(prev => [newItem, ...prev]);
-      setShowAddModal(false);
-      resetForm();
-    } catch (err) {
-      console.error('Error creating item:', err);
-      setError('Failed to create item. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateItem = async () => {
-    if (!editingItem) return;
-    
-    try {
-      setLoading(true);
-      const updates: UpdateItemData = {
-        title: formData.title,
-        description: formData.description,
-        availability_type: formData.availability_type,
-        condition: formData.condition,
-        location: formData.location
-      };
       
-      const updatedItem = await itemsService.updateItem(editingItem.id, updates);
-      setItems(prev => prev.map(item => item.id === editingItem.id ? updatedItem : item));
-      setShowEditModal(false);
-      setEditingItem(null);
-      resetForm();
-    } catch (err) {
-      console.error('Error updating item:', err);
-      setError('Failed to update item. Please try again.');
-    } finally {
-      setLoading(false);
+      // Apply client-side filtering
+      let filteredItems = mockItems;
+      
+      if (searchTerm) {
+        filteredItems = filteredItems.filter(item => 
+          item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+      
+      if (selectedCategory !== 'all') {
+        // For demo purposes, we'll do a simple category match
+        // In real app, this would match against category_id
+        filteredItems = filteredItems.filter(item => {
+          const itemCategory = getItemCategory(item.title);
+          return itemCategory === selectedCategory;
+        });
+      }
+      
+      if (selectedType !== 'all') {
+        filteredItems = filteredItems.filter(item => 
+          item.availability_type === selectedType
+        );
+      }
+      
+      setItems(filteredItems);
+    } catch (error) {
+      console.error('Error loading items:', error);
+      setItems([]);
     }
   };
 
-  const handleDeleteItem = async () => {
-    if (!deletingItem) return;
-    
-    try {
-      setLoading(true);
-      await itemsService.deleteItem(deletingItem.id);
-      setItems(prev => prev.filter(item => item.id !== deletingItem.id));
-      setShowDeleteModal(false);
-      setDeletingItem(null);
-    } catch (err) {
-      console.error('Error deleting item:', err);
-      setError('Failed to delete item. Please try again.');
-    } finally {
-      setLoading(false);
+  // Helper function to categorize items based on title
+  const getItemCategory = (title: string): string => {
+    const titleLower = title.toLowerCase();
+    if (titleLower.includes('macbook') || titleLower.includes('pc') || titleLower.includes('camera') || titleLower.includes('gaming')) {
+      return 'Electronics';
     }
-  };
-
-  // Form helpers
-  const resetForm = () => {
-    setFormData({
-      title: '',
-      description: '',
-      owner_id: 'current-user-id',
-      availability_type: 'sale',
-      condition: 'Good',
-      location: ''
-    });
-  };
-
-  const openEditModal = (item: Item) => {
-    setEditingItem(item);
-    setFormData({
-      title: item.title,
-      description: item.description,
-      owner_id: item.owner_id || 'current-user-id',
-      availability_type: item.availability_type,
-      condition: item.condition,
-      location: item.location || ''
-    });
-    setShowEditModal(true);
-  };
-
-  const openDeleteModal = (item: Item) => {
-    setDeletingItem(item);
-    setShowDeleteModal(true);
+    if (titleLower.includes('bike') || titleLower.includes('tent') || titleLower.includes('exercise')) {
+      return 'Sports';
+    }
+    if (titleLower.includes('sofa') || titleLower.includes('mixer')) {
+      return 'Furniture';
+    }
+    if (titleLower.includes('jacket') || titleLower.includes('clothing')) {
+      return 'Clothing';
+    }
+    if (titleLower.includes('drill') || titleLower.includes('tool')) {
+      return 'Tools';
+    }
+    if (titleLower.includes('book') || titleLower.includes('programming')) {
+      return 'Books';
+    }
+    if (titleLower.includes('guitar')) {
+      return 'Other';
+    }
+    return 'Other';
   };
 
   const getTypeColor = (type: string) => {
@@ -355,7 +294,7 @@ const BrowsePage: React.FC = () => {
             <p className="text-primary-600">Discover amazing items from your community</p>
           </div>
           <button
-            onClick={() => setShowAddModal(true)}
+            onClick={() => alert('Add Item functionality coming soon!')}
             className="bg-black text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition-colors flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

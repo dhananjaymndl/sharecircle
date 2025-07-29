@@ -1,106 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const HomePage: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  useEffect(() => {
-    setIsVisible(true);
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   const features = [
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-      ),
-      title: 'Secure Marketplace',
-      description: 'Buy and sell with confidence through our verified seller network and secure payment system.',
-      gradient: 'from-emerald-500 via-teal-500 to-cyan-500'
+      icon: '🛍️',
+      title: 'Buy & Sell',
+      description: 'Find amazing deals on items from your neighbors or sell things you no longer need.'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Flexible Rentals',
-      description: 'Access premium tools and equipment for any duration without the commitment of ownership.',
-      gradient: 'from-blue-500 via-indigo-500 to-purple-500'
+      icon: '🏠',
+      title: 'Rent Locally',
+      description: 'Rent tools, equipment, and items for short-term use instead of buying new.'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-        </svg>
-      ),
-      title: 'Live Auctions',
-      description: 'Participate in real-time auctions for unique items and rare finds from your community.',
-      gradient: 'from-purple-500 via-pink-500 to-rose-500'
+      icon: '🎯',
+      title: 'Auction Bidding',
+      description: 'Participate in exciting auctions to get the best deals on unique items.'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-      title: 'Vibrant Community',
-      description: 'Connect with neighbors, build relationships, and contribute to a sustainable local economy.',
-      gradient: 'from-orange-500 via-red-500 to-pink-500'
+      icon: '🤝',
+      title: 'Community First',
+      description: 'Build connections with neighbors while practicing sustainable consumption.'
     }
   ];
 
   const categories = [
     {
       name: 'Electronics',
-      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&h=600&fit=crop&q=90',
-      count: '1,247',
-      trending: '+12%'
+      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=300&fit=crop',
+      count: '1,200+ items'
     },
     {
       name: 'Furniture',
-      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=90',
-      count: '843',
-      trending: '+8%'
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop',
+      count: '800+ items'
     },
     {
       name: 'Sports & Outdoors',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&q=90',
-      count: '621',
-      trending: '+15%'
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      count: '600+ items'
     },
     {
-      name: 'Tools & Equipment',
-      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=90',
-      count: '456',
-      trending: '+5%'
-    }
-  ];
-
-  const testimonials = [
-    {
-      text: "ShareCircle transformed how I think about consumption. I've saved thousands while building amazing relationships with my neighbors.",
-      author: "Sarah Chen",
-      role: "Community Member",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b69a88bb?w=64&h=64&fit=crop&crop=face&q=80"
-    },
-    {
-      text: "The rental system is genius. I can access professional tools whenever I need them without cluttering my garage.",
-      author: "Marcus Johnson",
-      role: "DIY Enthusiast",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face&q=80"
-    },
-    {
-      text: "I've found incredible vintage pieces through the auction feature. The community aspect makes every purchase special.",
-      author: "Elena Rodriguez",
-      role: "Collector",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face&q=80"
+      name: 'Tools',
+      image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop',
+      count: '400+ items'
     }
   ];
 

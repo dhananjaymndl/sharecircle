@@ -1,6 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import type { Item } from '../lib/supabase';
+
+// Local type definition for demo purposes
+interface Item {
+  id: string;
+  title: string;
+  description: string;
+  category_id?: string;
+  owner_id?: string;
+  price_per_day?: number;
+  sale_price?: number;
+  deposit_amount?: number;
+  condition: string;
+  availability_type: 'rent' | 'sale' | 'both' | 'auction';
+  is_available: boolean;
+  location?: string;
+  latitude?: number;
+  longitude?: number;
+  images?: string[];
+  tags?: string[];
+  created_at: string;
+  updated_at: string;
+  owner?: {
+    name?: string;
+    email?: string;
+  };
+}
 
 const BrowsePage: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);

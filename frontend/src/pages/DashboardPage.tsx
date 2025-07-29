@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 interface Item {
@@ -16,7 +15,6 @@ interface Item {
 }
 
 const DashboardPage: React.FC = () => {
-  const { user } = useAuth();
   const [items, setItems] = useState<Item[]>([]);
   const [stats, setStats] = useState({
     totalItems: 0,
@@ -70,7 +68,7 @@ const DashboardPage: React.FC = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-primary-900 mb-2">
-            Welcome back, {user?.name}!
+            Welcome back, User!
           </h1>
           <p className="text-primary-600">Manage your items and track your activity</p>
         </div>

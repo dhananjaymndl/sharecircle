@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +8,6 @@ const RegisterPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
-  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,20 +19,11 @@ const RegisterPage: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    try {
-      await register({ 
-        email, 
-        password, 
-        name: email.split('@')[0],
-        phone: '',
-        location: '' 
-      });
-      navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+    // Simulate registration process
+    setTimeout(() => {
       setIsLoading(false);
-    }
+      navigate('/dashboard');
+    }, 1000);
   };
 
   return (

@@ -27,12 +27,6 @@ const Navbar: React.FC = () => {
               Browse
             </Link>
             <Link
-              to="/login"
-              className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Login
-            </Link>
-            <Link
               to="/register"
               className="btn-primary text-sm"
             >

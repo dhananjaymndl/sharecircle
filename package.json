@@ -1,0 +1,18 @@
+{
+  "name": "sharecircle",
+  "version": "1.0.0",
+  "description": "Community Item Sharing Platform - Rent/Buy/Exchange",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "test": "cd backend && npm test && cd ../frontend && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "author": "Dhananjay Mondal",
+  "license": "MIT"
+}

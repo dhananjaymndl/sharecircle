@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareCircle - Project Infographic with AI Features</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .flow-arrow {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: #cbd5e1;
+            margin: 1rem 0;
+        }
+        .flow-arrow::after {
+            content: '▼';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #94a3b8;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: #00A6ED;
+            border: 4px solid white;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #00A6ED;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-[#2F2F2F]">
+
+    
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-[#00A6ED] mb-2">ShareCircle: Community Item Sharing</h1>
+            <p class="text-lg md:text-xl text-gray-600">A Visual Guide to the Technical Specification & AI Enhancements</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Section 1: The Vision -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">1. The Vision: Bridging the Community Sharing Gap</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="kpi-card bg-[#F6511D]/10 border border-[#F6511D]">
+                        <h3 class="text-2xl font-bold text-[#F6511D] mb-2">The Market Problem</h3>
+                        <p class="text-gray-700 mb-4">Existing platforms are fragmented. They focus only on buying/selling (like OLX) or free sharing (like OLIO), with no integrated solution for community-based renting and auctions.</p>
+                        <div class="text-5xl font-black text-[#F6511D]">GAP</div>
+                    </div>
+                    <div class="kpi-card bg-[#7FB800]/10 border border-[#7FB800]">
+                        <h3 class="text-2xl font-bold text-[#7FB800] mb-2">Our Hybrid Solution</h3>
+                        <p class="text-gray-700 mb-4">A unified platform to reduce waste and build community trust, enabling users to buy, sell, rent, and auction items locally.</p>
+                        <div class="flex justify-center space-x-6 text-4xl">
+                            <span title="Buy/Sell">🛒</span>
+                            <span title="Rent">🤝</span>
+                            <span title="Auction">⚖️</span>
+                            <span title="Sustainable">♻️</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: The Blueprint -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">2. The Blueprint: Features & Architecture</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Core Service Modules</h3>
+                        <p class="text-center text-gray-600 mb-4">The platform is built on a modular, microservices-based architecture. This chart shows the functional breakdown of our backend services for the MVP.</p>
+                        <div class="chart-container">
+                            <canvas id="coreModulesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">High-Level Architecture Flow</h3>
+                        <p class="text-center text-gray-600 mb-6">This diagram illustrates how users interact with our backend services and integrated third-party platforms. It's a simplified representation of the system's data flow.</p>
+                        <div class="space-y-4 text-center text-sm">
+                            <div class="bg-blue-100 text-blue-800 font-semibold p-3 rounded-lg shadow">User Devices (Web/Mobile)</div>
+                            <div class="flow-arrow"></div>
+                            <div class="bg-gray-200 text-gray-800 font-semibold p-3 rounded-lg shadow">Load Balancer</div>
+                            <div class="flow-arrow"></div>
+                            <div class="border-2 border-dashed border-gray-400 p-4 rounded-lg">
+                                <h4 class="font-bold mb-2">Backend Services (Node.js)</h4>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-yellow-100 p-2 rounded">Auth Service</div>
+                                    <div class="bg-yellow-100 p-2 rounded">Item Listing</div>
+                                    <div class="bg-yellow-100 p-2 rounded">Booking Service</div>
+                                    <div class="bg-yellow-100 p-2 rounded">Chat Service</div>
+                                    <div class="bg-yellow-100 p-2 rounded">Notifications</div>
+                                    <div class="bg-yellow-100 p-2 rounded">Payments</div>
+                                </div>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-green-100 text-green-800 font-semibold p-3 rounded-lg shadow">Database (PostgreSQL)</div>
+                                <div class="bg-red-100 text-red-800 font-semibold p-3 rounded-lg shadow">3rd Party APIs (Stripe, S3, etc.)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: The Build -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">3. The Build: Project Roadmap & Milestones</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">MVP Development Timeline (10 Weeks)</h3>
+                        <p class="text-center text-gray-600 mb-4">Our MVP will be delivered using an Agile approach over five 2-week sprints, ensuring iterative progress and consistent delivery of key features.</p>
+                        <div class="chart-container h-96">
+                            <canvas id="sprintTimelineChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Key Project Milestones</h3>
+                        <p class="text-center text-gray-600 mb-8">These milestones mark critical checkpoints in our development journey, culminating in a production-ready MVP.</p>
+                        <div class="relative pl-12 border-l-4 border-gray-200">
+                            <div class="timeline-item mb-8">
+                                <h4 class="font-bold text-[#00A6ED]">Milestone 1 (End of Sprint 2)</h4>
+                                <p class="text-gray-600">Item listings and user authentication systems are complete and functional.</p>
+                            </div>
+                            <div class="timeline-item mb-8">
+                                <h4 class="font-bold text-[#00A6ED]">Milestone 2 (End of Sprint 3)</h4>
+                                <p class="text-gray-600">Booking and payment features are live and testable on the staging environment.</p>
+                            </div>
+                            <div class="timeline-item mb-8">
+                                <h4 class="font-bold text-[#00A6ED]">Milestone 3 (End of Sprint 4)</h4>
+                                <p class="text-gray-600">Real-time chat and push notifications are fully operational.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4 class="font-bold text-[#00A6ED]">Milestone 4 (End of Sprint 5)</h4>
+                                <p class="text-gray-600">Beta testing is complete, delivering a production-ready MVP.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: The Foundation -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">4. The Foundation: Technology & Services</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The platform is built on a modern, scalable, and secure technology stack, leveraging industry-leading services to ensure reliability and performance.</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                    <div class="kpi-card"><span class="text-4xl">⚙️</span><p class="font-bold mt-2">Node.js</p><p class="text-sm text-gray-500">Backend</p></div>
+                    <div class="kpi-card"><span class="text-4xl">🐘</span><p class="font-bold mt-2">PostgreSQL</p><p class="text-sm text-gray-500">Database</p></div>
+                    <div class="kpi-card"><span class="text-4xl">📦</span><p class="font-bold mt-2">AWS S3</p><p class="text-sm text-gray-500">Storage</p></div>
+                    <div class="kpi-card"><span class="text-4xl">🔔</span><p class="font-bold mt-2">Firebase</p><p class="text-sm text-gray-500">Notifications</p></div>
+                    <div class="kpi-card"><span class="text-4xl">💳</span><p class="font-bold mt-2">Stripe</p><p class="text-sm text-gray-500">Payments</p></div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Strategy -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">5. The Strategy: Priorities & Success Metrics</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">MVP Feature Prioritization</h3>
+                        <p class="text-center text-gray-600 mb-4">Features are prioritized to deliver maximum value in the MVP. P1 features are essential for launch, while P2 and P3 are planned for future iterations.</p>
+                        <div class="chart-container">
+                            <canvas id="prioritizationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Key Performance Indicators</h3>
+                        <p class="text-center text-gray-600 mb-8">Success will be measured by a combination of system health and business-critical metrics.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="kpi-card bg-[#00A6ED]/10">
+                                <div class="text-3xl font-black text-[#00A6ED]">99.5%</div>
+                                <div class="font-semibold mt-1">API Uptime</div>
+                            </div>
+                             <div class="kpi-card bg-[#7FB800]/10">
+                                <div class="text-3xl font-black text-[#7FB800]">&lt;300ms</div>
+                                <div class="font-semibold mt-1">API Response</div>
+                            </div>
+                             <div class="kpi-card bg-[#FFB400]/10">
+                                <div class="text-3xl font-black text-[#FFB400]">&lt;1%</div>
+                                <div class="font-semibold mt-1">Error Rate</div>
+                            </div>
+                             <div class="kpi-card bg-[#F6511D]/10">
+                                <div class="text-3xl font-black text-[#F6511D]">1000+</div>
+                                <div class="font-semibold mt-1">Daily Active Users</div>
+                                <p class="text-xs text-gray-500">(Target)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: The Big Picture -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">6. The Big Picture: Cost & Risk Management</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Estimated Monthly MVP Costs</h3>
+                        <p class="text-center text-gray-600 mb-4">The MVP is designed for cost-efficiency, with an estimated total monthly operational cost under $100 during the pilot phase (excluding variable transaction fees).</p>
+                        <div class="chart-container">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Key Risks & Mitigation</h3>
+                         <p class="text-center text-gray-600 mb-8">We have identified key potential risks and have proactive mitigation strategies in place to ensure project stability and success.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-orange-500 mr-3 mt-1">⚠️</span>
+                                <div>
+                                    <h4 class="font-bold">Dispute Risk</h4>
+                                    <p class="text-gray-600 text-sm">Users may return damaged items. This will be managed via an in-app reporting system and a clear moderation workflow.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-orange-500 mr-3 mt-1">⚠️</span>
+                                <div>
+                                    <h4 class="font-bold">Scalability Risk</h4>
+                                    <p class="text-gray-600 text-sm">Sudden traffic spikes will be handled by configuring auto-scaling on our cloud infrastructure with a load balancer.</p>
+                                </div>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-orange-500 mr-3 mt-1">⚠️</span>
+                                <div>
+                                    <h4 class="font-bold">Security Risk</h4>
+                                    <p class="text-gray-600 text-sm">Account takeovers will be mitigated with JWTs, rate-limiting, and CAPTCHA on critical actions.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: AI-Powered Enhancements -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">7. AI-Powered Enhancements (Gemini API)</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">ShareCircle leverages the Gemini API to integrate intelligent features, enhancing user experience and streamlining operations.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Smart Item Description Generator -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Smart Item Description Generator</h3>
+                        <p class="text-gray-600 mb-4">Input a few keywords, and our AI will generate a detailed, engaging description for your item listing, saving you time and effort.</p>
+                        <textarea id="descInput" class="w-full p-3 border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-[#00A6ED]" rows="3" placeholder="e.g., 'lawn mower, used, good condition, for small gardens'"></textarea>
+                        <button id="generateDescBtn" class="w-full bg-[#00A6ED] text-white font-bold py-2 px-4 rounded-md hover:bg-[#007BBF] transition duration-300 flex items-center justify-center">
+                            <span id="descSpinner" class="hidden loading-spinner mr-2"></span> Generate Description
+                        </button>
+                        <div id="descOutput" class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-md text-gray-800 min-h-[80px]"></div>
+                    </div>
+
+                    <!-- Category Suggestion -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">AI-Powered Category Suggestion</h3>
+                        <p class="text-gray-600 mb-4">Describe your item, and our AI will suggest the most appropriate category from our predefined list, ensuring accurate listings.</p>
+                        <input type="text" id="categoryInput" class="w-full p-3 border border-gray-300 rounded-md mb-4 focus:ring-2 focus:ring-[#00A6ED]" placeholder="e.g., 'a drill for home repairs'">
+                        <button id="suggestCategoryBtn" class="w-full bg-[#7FB800] text-white font-bold py-2 px-4 rounded-md hover:bg-[#5E8C00] transition duration-300 flex items-center justify-center">
+                            <span id="categorySpinner" class="hidden loading-spinner mr-2"></span> Suggest Category
+                        </button>
+                        <div id="categoryOutput" class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-md text-gray-800 min-h-[80px]"></div>
+                    </div>
+
+                    <!-- AI-Powered Risk Assessment (Conceptual) -->
+                    <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+                        <h3 class="text-xl font-bold text-center mb-4">AI-Powered Risk Assessment (Conceptual)</h3>
+                        <p class="text-gray-600 mb-4">Imagine uploading a photo of a returned item. Our AI (using Gemini's image understanding) could analyze its condition and provide an immediate risk assessment, flagging potential damage or misuse. This feature would streamline dispute resolution.</p>
+                        <button id="simulateRiskBtn" class="w-full bg-[#FFB400] text-white font-bold py-2 px-4 rounded-md hover:bg-[#CC8C00] transition duration-300 flex items-center justify-center">
+                            <span id="riskSpinner" class="hidden loading-spinner mr-2"></span> Simulate Risk Analysis
+                        </button>
+                        <div id="riskOutput" class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-md text-gray-800 min-h-[80px]"></div>
+                    </div>
+
+                    <!-- AI-Powered Recommendations (Conceptual) -->
+                    <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+                        <h3 class="text-xl font-bold text-center mb-4">AI-Powered Item Recommendations (Conceptual)</h3>
+                        <p class="text-gray-600 mb-4">Based on your past rentals, purchases, or browsing history, our AI could suggest relevant items you might be interested in, fostering more engagement and transactions on ShareCircle. This is a future goal.</p>
+                        <button id="simulateRecBtn" class="w-full bg-[#F6511D] text-white font-bold py-2 px-4 rounded-md hover:bg-[#C24017] transition duration-300 flex items-center justify-center">
+                            <span id="recSpinner" class="hidden loading-spinner mr-2"></span> Simulate Recommendations
+                        </button>
+                        <div id="recOutput" class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-md text-gray-800 min-h-[80px]"></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">Infographic generated from Technical Specification v1.0 | July 29, 2025</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const energeticPalette = {
+            blue: '#00A6ED',
+            green: '#7FB800',
+            gold: '#FFB400',
+            red: '#F6511D',
+            gray: '#2F2F2F'
+        };
+
+        const tooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        function wrapLabel(str, maxWidth = 16) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        // Chart 1: Core Modules
+        const coreModulesCtx = document.getElementById('coreModulesChart').getContext('2d');
+        new Chart(coreModulesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Item Listing', 'Booking Service', 'Auth Service', 'Chat Service', 'Notifications', 'Payment Service'],
+                datasets: [{
+                    label: 'Core Modules',
+                    data: [25, 20, 15, 15, 15, 10],
+                    backgroundColor: [
+                        energeticPalette.blue,
+                        energeticPalette.green,
+                        energeticPalette.gold,
+                        energeticPalette.red,
+                        '#6b7280',
+                        '#a855f7'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipConfig.plugins,
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Sprint Timeline
+        const sprintTimelineCtx = document.getElementById('sprintTimelineChart').getContext('2d');
+        new Chart(sprintTimelineCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4', 'Sprint 5'],
+                datasets: [{
+                    label: 'Weeks',
+                    data: [
+                        [0, 2],
+                        [2, 4],
+                        [4, 6],
+                        [6, 8],
+                        [8, 10]
+                    ],
+                    backgroundColor: [
+                        energeticPalette.blue,
+                        energeticPalette.green,
+                        energeticPalette.gold,
+                        energeticPalette.red,
+                        energeticPalette.blue
+                    ],
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Weeks'
+                        }
+                    }
+                },
+                plugins: {
+                     ...tooltipConfig.plugins,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // Chart 3: Prioritization
+        const prioritizationCtx = document.getElementById('prioritizationChart').getContext('2d');
+        new Chart(prioritizationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['P1 (Must Have)', 'P2 (Should Have)', 'P3 (Nice to Have)'],
+                datasets: [{
+                    label: 'Number of Features',
+                    data: [6, 3, 2],
+                    backgroundColor: [energeticPalette.red, energeticPalette.gold, energeticPalette.green],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipConfig.plugins,
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Feature Count'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart 4: Cost Breakdown
+        const costCtx = document.getElementById('costChart').getContext('2d');
+        new Chart(costCtx, {
+            type: 'pie',
+            data: {
+                labels: [wrapLabel('AWS S3 + EC2'), wrapLabel('Supabase/PostgreSQL'), wrapLabel('Firebase (Free Tier)'), wrapLabel('Google Maps API (Free Tier)')],
+                datasets: [{
+                    label: 'Estimated Monthly Cost ($)',
+                    data: [30, 25, 0, 0],
+                    backgroundColor: [
+                        energeticPalette.blue,
+                        energeticPalette.green,
+                        energeticPalette.gold,
+                        energeticPalette.red,
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipConfig.plugins,
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+
+        // LLM Integration
+        const apiKey = ""; 
+
+        async function callGeminiAPI(prompt, outputElementId, spinnerId, schema = null) {
+            const outputElement = document.getElementById(outputElementId);
+            const spinner = document.getElementById(spinnerId);
+            outputElement.textContent = '';
+            spinner.classList.remove('hidden');
+
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+            const payload = { contents: chatHistory };
+            if (schema) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: schema
+                };
+            }
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    if (schema) {
+                        try {
+                            const parsedJson = JSON.parse(text);
+                            outputElement.textContent = JSON.stringify(parsedJson, null, 2);
+                        } catch (e) {
+                            outputElement.textContent = `Error parsing JSON: ${text}`;
+                        }
+                    } else {
+                        outputElement.textContent = text;
+                    }
+                } else {
+                    outputElement.textContent = 'No response from LLM or unexpected format.';
+                }
+            } catch (error) {
+                outputElement.textContent = `Error: ${error.message}`;
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // Smart Item Description Generator
+        document.getElementById('generateDescBtn').addEventListener('click', () => {
+            const keywords = document.getElementById('descInput').value;
+            if (keywords.trim() === '') {
+                document.getElementById('descOutput').textContent = 'Please enter some keywords.';
+                return;
+            }
+            const prompt = `Generate a detailed item description for a community sharing platform called ShareCircle based on these keywords: "${keywords}". Focus on features, condition, and typical use cases. Make it engaging and concise, around 50-70 words.`;
+            callGeminiAPI(prompt, 'descOutput', 'descSpinner');
+        });
+
+        // Category Suggestion
+        document.getElementById('suggestCategoryBtn').addEventListener('click', () => {
+            const itemDesc = document.getElementById('categoryInput').value;
+            if (itemDesc.trim() === '') {
+                document.getElementById('categoryOutput').textContent = 'Please describe the item.';
+                return;
+            }
+            const categories = ['Electronics', 'Home & Garden', 'Tools', 'Sports & Outdoors', 'Books & Media', 'Clothing & Accessories', 'Vehicles', 'Services', 'Other'];
+            const prompt = `Given the following item description: "${itemDesc}", suggest the most appropriate category from this list: ${categories.join(', ')}. Provide only the category name, nothing else.`;
+            const schema = { type: "STRING" };
+            callGeminiAPI(prompt, 'categoryOutput', 'categorySpinner', schema);
+        });
+
+        // Simulate Risk Analysis (Conceptual)
+        document.getElementById('simulateRiskBtn').addEventListener('click', () => {
+            const outputElement = document.getElementById('riskOutput');
+            const spinner = document.getElementById('riskSpinner');
+            outputElement.textContent = '';
+            spinner.classList.remove('hidden');
+            setTimeout(() => {
+                outputElement.textContent = 'Simulated AI Analysis: Item shows minor wear consistent with "Good" condition. No significant damage detected. Low risk for rental.';
+                spinner.classList.add('hidden');
+            }, 1500);
+        });
+
+        // Simulate Recommendations (Conceptual)
+        document.getElementById('simulateRecBtn').addEventListener('click', () => {
+            const outputElement = document.getElementById('recOutput');
+            const spinner = document.getElementById('recSpinner');
+            outputElement.textContent = '';
+            spinner.classList.remove('hidden');
+            setTimeout(() => {
+                outputElement.textContent = 'Simulated AI Recommendations: Based on your interest in "gardening tools," you might like: "Electric Leaf Blower," "Garden Hose Reel," or "Pruning Shears."';
+                spinner.classList.add('hidden');
+            }, 1500);
+        });
+
+    </script>
+</body>
+</html>

@@ -111,7 +111,16 @@ const HomePage: React.FC = () => {
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"></div>
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+          <div className="absolute inset-0 opacity-20">
+            <svg className="w-full h-full" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <circle cx="30" cy="30" r="4" fill="#9C92AC" fillOpacity="0.03" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#dots)" />
+            </svg>
+          </div>
         </div>
         
         {/* Floating Elements */}
@@ -351,7 +360,16 @@ const HomePage: React.FC = () => {
 
       {/* Premium CTA Section */}
       <section className="py-32 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h20V20H20z"/%3E%3C/g%3E%3C/svg%3E')]"></div>
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="geometric" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M20 20c0 11.046-8.954 20-20 20v20h20V20H20z" fill="#ffffff" fillOpacity="0.05" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#geometric)" />
+          </svg>
+        </div>
         
         <div className="relative max-w-5xl mx-auto px-6 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
